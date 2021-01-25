@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterwith_mobx/models/posts.dart';
 import 'package:mobx/mobx.dart';
 part 'post_view_model.g.dart';

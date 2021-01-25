@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutterwith_mobx/components/widgets.dart';
 import 'package:flutterwith_mobx/models/posts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:slimy_card/slimy_card.dart';
 
 class UserDetails extends StatefulWidget {
-  final int index;
   final Post userDetail;
-  UserDetails(this.index, this.userDetail);
+  UserDetails(this.userDetail);
 
   @override
   _UserDetailsState createState() => _UserDetailsState();
@@ -25,17 +25,17 @@ class _UserDetailsState extends State<UserDetails> {
         infoWindow: InfoWindow(title: widget.userDetail.name)));
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xfff8f1f1),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 20,
+                height: 15,
               ),
               SlimyCard(
-                color: Colors.teal,
+                color: Color(0xff0f3057),
                 width: size.width * 0.95,
                 topCardHeight: size.height * 0.5,
                 bottomCardHeight: size.height * 0.3,
@@ -55,21 +55,33 @@ class _UserDetailsState extends State<UserDetails> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 8.0, right: 15, top: 10, bottom: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    left: 15.0, right: 15, top: 10, bottom: 8),
+                child: Column(
                   children: [
-                    Text(
-                      "Location:",
-                      style: TextStyle(
-                          fontFamily: 'Raleway-Bold',
-                          fontSize: 24,
-                          color: Colors.black),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Location",
+                          style: TextStyle(
+                              fontFamily: 'Raleway-Bold',
+                              fontSize: 24,
+                              color: Colors.black),
+                        ),
+                        Icon(
+                          FontAwesomeIcons.mapMarkerAlt,
+                          color: Color(0xfff05454),
+                        )
+                      ],
                     ),
-                    Icon(
-                      FontAwesomeIcons.mapMarkerAlt,
-                      color: Color(0xfff05454),
-                    )
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 1,
+                      width: size.width,
+                      color: Colors.grey,
+                    ),
                   ],
                 ),
               ),
@@ -122,26 +134,125 @@ class _UserDetailsState extends State<UserDetails> {
   }
 }
 
+Widget userDetailbottomCardWidget(
+    String company, String website, String catchPhrase) {
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Business Information',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: "Raleway-Bold"),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 1,
+              width: 300,
+              color: Colors.white,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        infoWindowRow("Company Name:", company),
+        SizedBox(
+          height: 5,
+        ),
+        infoWindowRow("Web Site:", website),
+        SizedBox(
+          height: 5,
+        ),
+        infoWindowRow("Working Area:", catchPhrase),
+        SizedBox(
+          height: 5,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Icon(
+              FontAwesomeIcons.linkedin,
+              color: Colors.white,
+              size: 30,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              children: [
+                Container(
+                  width: 1.5,
+                  height: 30,
+                  color: Colors.grey,
+                )
+              ],
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              FontAwesomeIcons.github,
+              color: Colors.white,
+              size: 30,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+          ],
+        )
+      ],
+    ),
+  );
+}
+
 Widget userDetailtopCardWidget(context, String imagePath, String name,
     String email, String phone, String username) {
   return Stack(
     children: [
       Positioned(
-          top: 10,
-          left: 10,
-          child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: 34,
-              height: 34,
-              child: Icon(
-                FontAwesomeIcons.arrowLeft,
-                color: Colors.white,
-              ),
+        top: 10,
+        left: 10,
+        child: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            width: 34,
+            height: 34,
+            child: Icon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
             ),
-          )),
+          ),
+        ),
+      ),
+      Positioned(
+        top: 10,
+        right: 10,
+        child: Container(
+          width: 34,
+          height: 34,
+          child: Icon(
+            FontAwesomeIcons.solidEnvelope,
+            color: Colors.white,
+          ),
+        ),
+      ),
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -185,82 +296,21 @@ Widget userDetailtopCardWidget(context, String imagePath, String name,
           Text(
             "Email: " + email,
             style: TextStyle(
+                fontFamily: "Raleway-Regular",
                 color: Colors.white.withOpacity(0.8),
-                fontSize: 14,
-                fontWeight: FontWeight.w500),
+                fontSize: 15),
           ),
           SizedBox(height: 5),
           Text(
             "Phone: " + phone,
             style: TextStyle(
+                fontFamily: "Raleway-Regular",
                 color: Colors.white.withOpacity(0.8),
-                fontSize: 14,
-                fontWeight: FontWeight.w500),
+                fontSize: 15),
           ),
           SizedBox(height: 10),
         ],
       ),
-    ],
-  );
-}
-
-// This widget will be passed as Bottom Card's Widget.
-Widget userDetailbottomCardWidget(
-    String company, String website, String catchPhrase) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Business Information',
-            style: TextStyle(
-                color: Colors.white, fontSize: 22, fontFamily: "Raleway-Bold"),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 20,
-      ),
-      Text(
-        "Company Name: " + company,
-        style: TextStyle(
-            color: Colors.white, fontSize: 17, fontFamily: "Raleway-Regular"),
-      ),
-      Text(
-        "Personal Web Site: " + website,
-        style: TextStyle(
-            color: Colors.white, fontSize: 17, fontFamily: "Raleway-Regular"),
-      ),
-      Text(
-        "Working Area : " + catchPhrase,
-        style: TextStyle(
-            color: Colors.white, fontSize: 17, fontFamily: "Raleway-Regular"),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Icon(
-            FontAwesomeIcons.linkedin,
-            color: Color(0xff0077b5),
-            size: 30,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Icon(
-            FontAwesomeIcons.github,
-            color: Color(0xff6e5494),
-            size: 30,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      )
     ],
   );
 }
