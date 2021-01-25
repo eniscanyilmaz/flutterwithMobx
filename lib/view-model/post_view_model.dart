@@ -11,8 +11,6 @@ abstract class _PostViewModelBase with Store {
   @observable
   List<Post> posts = [];
 
-  final imageUrlList = [];
-
   final url = "https://flutterwithmobx-default-rtdb.firebaseio.com/Users.json";
 
   @observable
