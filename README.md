@@ -1,6 +1,6 @@
 # flutterwith_mobx
 
-Flutter Contact List App with MobX, Sample App.
+Flutter Random User List App with MobX, Sample App.
 
 
 
