@@ -3,12 +3,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutterwith_mobx/view-model/post_view_model.dart';
 import 'package:flutterwith_mobx/view/screens/user_Detail.dart';
 
+/*
+    Last Update: 26.01.2021, Tuesday.
+    Changes: Added comment lines. / Segmentation code into widgets. / Added comment lines.
+*/
+
 class PostView extends StatelessWidget {
   final _viewModel = PostViewModel();
 
   @override
   Widget build(BuildContext context) {
-    _viewModel.changeRequest();
+    //Firstly get datas with opening this page.
+    //Wrap listwiew with observer and listen to changes in bodyContainer widget.
     _viewModel.getAllPost();
     var size = MediaQuery.of(context).size;
 
@@ -69,7 +75,6 @@ class PostView extends StatelessWidget {
           child: Observer(builder: (_) {
             return ListView.separated(
                 separatorBuilder: (context, index) => Divider(),
-                shrinkWrap: true,
                 itemCount: _viewModel.posts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return listViewRowItem(context, index);

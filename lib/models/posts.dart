@@ -1,3 +1,8 @@
+/*
+    Model classes for incoming datas.
+    
+*/
+
 class Post {
   int id;
   String name;

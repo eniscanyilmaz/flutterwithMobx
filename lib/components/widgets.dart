@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//UserDetail Page animated card content.
 Widget infoWindowRow(String title, String text) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,

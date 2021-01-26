@@ -5,6 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:slimy_card/slimy_card.dart';
 
+/*
+    Last Update: 26.01.2021, Tuesday.
+    Changes: Added comment lines. / Segmentation code into widgets. / Added comment lines.
+*/
+
 class UserDetails extends StatefulWidget {
   final Post userDetail;
   UserDetails(this.userDetail);
@@ -18,11 +23,14 @@ List<Marker> _markers = <Marker>[];
 class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
+    //Show user location's marker with user's latlng variable.
     _markers.add(Marker(
         markerId: MarkerId(widget.userDetail.id.toString()),
         position: LatLng(double.parse(widget.userDetail.address.geo.lat),
             double.parse(widget.userDetail.address.geo.lng)),
         infoWindow: InfoWindow(title: widget.userDetail.name)));
+
+    //Define screen size for responsive design.
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xfff8f1f1),
@@ -53,87 +61,99 @@ class _UserDetailsState extends State<UserDetails> {
                     widget.userDetail.company.catchPhrase),
                 slimeEnabled: true,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15, top: 10, bottom: 8),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Location",
-                          style: TextStyle(
-                              fontFamily: 'Raleway-Bold',
-                              fontSize: 24,
-                              color: Colors.black),
-                        ),
-                        Icon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          color: Color(0xfff05454),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 1,
-                      width: size.width,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: size.height * 0.3,
-                width: size.width * 0.95,
-                child: GoogleMap(
-                    markers: Set<Marker>.of(_markers),
-                    mapType: MapType.terrain,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(
-                          double.parse(widget.userDetail.address.geo.lat),
-                          double.parse(widget.userDetail.address.geo.lng)),
-                      zoom: 14.75,
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0, left: 15, bottom: 15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Adress: ",
-                      style: TextStyle(
-                          fontFamily: 'Raleway-Bold',
-                          fontSize: 15,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      widget.userDetail.address.street +
-                          " / " +
-                          widget.userDetail.address.suite +
-                          "\n" +
-                          widget.userDetail.address.city +
-                          " / " +
-                          widget.userDetail.address.zipcode,
-                      style: TextStyle(
-                          fontFamily: 'Raleway-Regular',
-                          fontSize: 15,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-              )
+              googleMapAreaHeader(size),
+              locationOnMap(size),
+              userDetailFooter()
             ],
           ),
         ),
       ),
     );
   }
+
+//Google map area header title and icon.
+  Widget googleMapAreaHeader(Size size) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10, bottom: 8),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Location",
+                style: TextStyle(
+                    fontFamily: 'Raleway-Bold',
+                    fontSize: 24,
+                    color: Colors.black),
+              ),
+              Icon(
+                FontAwesomeIcons.mapMarkerAlt,
+                color: Color(0xff0f3057),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 1,
+            width: size.width,
+            color: Colors.grey,
+          ),
+        ],
+      ),
+    );
+  }
+
+//Show user location on google map widget.
+  Widget locationOnMap(Size size) {
+    return Container(
+      height: size.height * 0.3,
+      width: size.width * 0.95,
+      child: GoogleMap(
+          markers: Set<Marker>.of(_markers),
+          mapType: MapType.terrain,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(double.parse(widget.userDetail.address.geo.lat),
+                double.parse(widget.userDetail.address.geo.lng)),
+            zoom: 14.75,
+          )),
+    );
+  }
+
+//My end of page footer for adress info.
+  Widget userDetailFooter() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 15.0, left: 15, bottom: 15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Adress: ",
+            style: TextStyle(
+                fontFamily: 'Raleway-Bold', fontSize: 15, color: Colors.black),
+          ),
+          Text(
+            widget.userDetail.address.street +
+                " / " +
+                widget.userDetail.address.suite +
+                "\n" +
+                widget.userDetail.address.city +
+                " / " +
+                widget.userDetail.address.zipcode,
+            style: TextStyle(
+                fontFamily: 'Raleway-Regular',
+                fontSize: 15,
+                color: Colors.black),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
+//User animated info window.
 Widget userDetailbottomCardWidget(
     String company, String website, String catchPhrase) {
   return SingleChildScrollView(
@@ -220,6 +240,7 @@ Widget userDetailbottomCardWidget(
   );
 }
 
+//UserDetail main card widget.
 Widget userDetailtopCardWidget(context, String imagePath, String name,
     String email, String phone, String username) {
   return Stack(

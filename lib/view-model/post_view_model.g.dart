@@ -24,23 +24,6 @@ mixin _$PostViewModel on _PostViewModelBase, Store {
     });
   }
 
-  final _$isServiceRequestLoadingAtom =
-      Atom(name: '_PostViewModelBase.isServiceRequestLoading');
-
-  @override
-  bool get isServiceRequestLoading {
-    _$isServiceRequestLoadingAtom.reportRead();
-    return super.isServiceRequestLoading;
-  }
-
-  @override
-  set isServiceRequestLoading(bool value) {
-    _$isServiceRequestLoadingAtom
-        .reportWrite(value, super.isServiceRequestLoading, () {
-      super.isServiceRequestLoading = value;
-    });
-  }
-
   final _$getAllPostAsyncAction = AsyncAction('_PostViewModelBase.getAllPost');
 
   @override
@@ -48,25 +31,10 @@ mixin _$PostViewModel on _PostViewModelBase, Store {
     return _$getAllPostAsyncAction.run(() => super.getAllPost());
   }
 
-  final _$_PostViewModelBaseActionController =
-      ActionController(name: '_PostViewModelBase');
-
-  @override
-  void changeRequest() {
-    final _$actionInfo = _$_PostViewModelBaseActionController.startAction(
-        name: '_PostViewModelBase.changeRequest');
-    try {
-      return super.changeRequest();
-    } finally {
-      _$_PostViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-posts: ${posts},
-isServiceRequestLoading: ${isServiceRequestLoading}
+posts: ${posts}
     ''';
   }
 }
