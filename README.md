@@ -2,11 +2,6 @@
 
 Flutter Contact List App with MobX, Sample App.
 
-Screens: 
-![alt text](https://i.ibb.co/fxT7TPd/Screenshot-1611632353.png)
-![alt text](https://i.ibb.co/bQGxMCK/Screenshot-1611632362.png)
-![alt text](https://i.ibb.co/GCq7fdd/Screenshot-1611632369.png)
-
 
 
 
