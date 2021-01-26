@@ -1,6 +1,6 @@
 # flutterwith_mobx
 
-A new Flutter project.
+Flutter Contact List App with MobX, Sample App.
 
 ## Getting Started
 
